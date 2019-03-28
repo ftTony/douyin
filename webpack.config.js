@@ -19,7 +19,25 @@ module.exports = {
     port: 8000,   //端口
     open: true, //第一次打开浏览器
     hot: true, //是否监听
-    publicPath: "/" //访问的目录
+    publicPath: "/", //访问的目录
+    before (app) {
+      let List = []
+      const count = 1000
+
+      for (let i = 0; i < count; i++) {
+        List.push({
+          id: i,
+          content: `抖音数据${i}`
+        })
+      }
+      app.get('/api/getList', (req, res) => {
+        res.json({
+          code: 0,
+          msg: '',
+          data: List
+        })
+      })
+    }
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

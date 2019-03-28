@@ -1,7 +1,7 @@
 import axios from 'axios'
-export function getList (limit, currentPage) {
+export function getList (limit, page) {
   return axios({
     method: 'get',
-    url: '/api/getList'
+    url: `/api/getList?limit=${limit}&page=${page}`
   })
 }

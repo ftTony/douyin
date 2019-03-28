@@ -23,7 +23,6 @@ module.exports = {
     before (app) {
       let List = []
       const count = 1000
-
       for (let i = 0; i < count; i++) {
         List.push({
           id: i,
@@ -31,10 +30,12 @@ module.exports = {
         })
       }
       app.get('/api/getList', (req, res) => {
+        let limit = req.query.limit
+        let page = req.query.page
         res.json({
           code: 0,
           msg: '',
-          data: List
+          data: List.filter((item, index) => index < limit * page && index >= limit * (page - 1))
         })
       })
     }

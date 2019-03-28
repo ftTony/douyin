@@ -17,10 +17,10 @@ export default {
     }
   },
   created () {
-    getList().then((res) => {
+    getList(20, 1).then((res) => {
       this.list = res.data.data
       this.$nextTick(() => {
-        var swiper = new Swiper('.swiper-container', {
+        new Swiper('.swiper-container', {
           direction: 'vertical'
         })
       })

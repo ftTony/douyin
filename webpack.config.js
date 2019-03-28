@@ -1,8 +1,10 @@
-var webpack = require('webpack')
-const path = require('path')
+var webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
 const ClearWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -19,8 +21,25 @@ module.exports = {
     hot: true, //是否监听
     publicPath: "/" //访问的目录
   },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': path.join(__dirname, 'src')
+    }
+  },
   module: {
     rules: [{
+      test: /\.vue$/,
+      use: [{
+        loader: 'vue-loader',
+        options: {
+          compilerOptions: {
+            preserveWhitespace: false
+          }
+        }
+      }]
+    }, {
       // js babel处理
       test: /\.js$/,
       use: ['babel-loader']
@@ -34,9 +53,29 @@ module.exports = {
           name: '[name].[ext]'
         }
       }]
+    }, {
+      // test: /\.s[ac]ss$/,
+      test: /\.css$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        {
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            plugins: [
+              require('autoprefixer')({
+                'browsers': ['>1%', 'last 2 versions']
+              }),
+              require('postcss-cssnext')(),
+              require('cssnano')()
+            ]
+          }
+        }
+      ]
     }]
   },
-  devtool: 'source-map',
+  devtool: '#cheap-module-eval-source-map',
   plugins: [
     new ClearWebpackPlugin(),
     new ParallelUglifyPlugin({
@@ -54,6 +93,11 @@ module.exports = {
         }
       }
     }),
+    new MiniCssExtractPlugin({
+      filename: `[name]_[contenthash:8].css`,
+      chunkFilename: '[name]_[contenthash:8].css'
+    }),
+    new VueLoaderPlugin(),
     //将js自动插入到html里
     new HtmlWebpackPlugin({
       template: './src/index.html',

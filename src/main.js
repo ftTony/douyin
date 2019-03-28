@@ -1,2 +1,8 @@
-let a = '111'
-console.log('1111');
+import Vue from 'vue'
+import App from './App.vue'
+
+new Vue({
+  el: '#app',
+  template: '<App />',
+  components: { App }
+})

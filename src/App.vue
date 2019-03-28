@@ -3,37 +3,29 @@
     <div class="swiper-wrapper">
       <div class="swiper-slide"
            v-for="(item,index) in list"
-           :key="index">{{item.text}}</div>
+           :key="index">{{item.content}}</div>
     </div>
   </div>
 </template>
 <script>
 import Swiper from 'swiper'
+import { getList } from '@/api/index'
 export default {
   data () {
     return {
-      list: [
-        {
-          'text': 'slider1'
-        },
-        {
-          'text': 'slider2'
-        },
-        {
-          'text': 'slider3'
-        },
-        {
-          'text': 'slider4'
-        },
-        {
-          'text': 'slider5'
-        }
-      ]
+      list: []
     }
   },
-  mounted () {
-    var swiper = new Swiper('.swiper-container', {
-      direction: 'vertical'
+  created () {
+    getList().then((res) => {
+      this.list = res.data.data
+      this.$nextTick(() => {
+        var swiper = new Swiper('.swiper-container', {
+          direction: 'vertical'
+        })
+      })
+    }).catch((err) => {
+      console.log(err)
     })
   }
 }

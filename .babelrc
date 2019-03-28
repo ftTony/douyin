@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "modules": false,
         "targets": {
@@ -10,23 +10,12 @@
             "last 2 versions",
             "not ie <= 8"
           ]
-        }
+        },
+        "useBuiltIns": "usage"
       }
-    ],
-    "stage-2"
+    ]
   ],
   "plugins": [
-    "transform-runtime"
-  ],
-  "env": {
-    "test": {
-      "presets": [
-        "env",
-        "stage-2"
-      ],
-      "plugins": [
-        "istanbul"
-      ]
-    }
-  }
+    "@babel/plugin-transform-runtime"
+  ]
 }

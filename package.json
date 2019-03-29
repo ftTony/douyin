@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "mock": "json-server ./data/db.js",
     "dev": "webpack-dev-server --mode development --open",
-    "start": "run dev"
+    "start": "npm run dev"
   },
   "author": "xiaonengwu",
   "license": "ISC",
@@ -18,9 +17,7 @@
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
     "html-webpack-plugin": "^3.2.0",
-    "json-server": "^0.14.2",
     "mini-css-extract-plugin": "^0.5.0",
-    "mockjs": "^1.0.1-beta3",
     "postcss": "^7.0.14",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^3.0.0",

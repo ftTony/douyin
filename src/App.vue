@@ -34,7 +34,7 @@ export default {
         this.list = res
         this.$nextTick(() => {
           if (this.swiper) {
-            this.swiper.$('.swiper-slide-duplicate').eq(0).html(this.swiper.$('.swiper-slide').eq(10).html())
+            this.swiper.$('.swiper-slide-duplicate').eq(0).html(this.swiper.$('.swiper-slide').eq(size).html())
             this.swiper.$('.swiper-slide-duplicate').eq(1).html(this.swiper.$('.swiper-slide').eq(1).html())
           }
           if (!this.swiper) this.swiper = new Swiper('.swiper-container', {

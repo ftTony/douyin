@@ -34,8 +34,10 @@ export default {
         this.list = res
         this.$nextTick(() => {
           if (this.swiper) {
-            this.swiper.$('.swiper-slide-duplicate').eq(0).html(this.swiper.$('.swiper-slide').eq(size).html())
-            this.swiper.$('.swiper-slide-duplicate').eq(1).html(this.swiper.$('.swiper-slide').eq(1).html())
+            let $swiper_slide_duplicate = this.swiper.$('.swiper-slide-duplicate')
+            let $swiper_slide = this.swiper.$('.swiper-slide')
+            $swiper_slide_duplicate.eq(0).html($swiper_slide.eq(size).html())
+            $swiper_slide_duplicate.eq(1).html($swiper_slide.eq(1).html())
           }
           if (!this.swiper) this.swiper = new Swiper('.swiper-container', {
             direction: 'vertical',

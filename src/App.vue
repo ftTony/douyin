@@ -13,20 +13,47 @@ import { getList } from '@/api/index'
 export default {
   data () {
     return {
-      list: []
+      list: [],
+      swiper: null,
+      page: 0
     }
   },
   created () {
-    getList(20, 1).then((res) => {
-      this.list = res.data.data
-      this.$nextTick(() => {
-        new Swiper('.swiper-container', {
-          direction: 'vertical'
+    this.getListData(++this.page)
+  },
+  methods: {
+    getListData (page) {
+      if (page < 1) page = 100
+      if (page > 100) page = 1
+      const size = 10
+      let promise = localStorage.getItem(page) ? Promise.resolve(JSON.parse(localStorage.getItem(page))) : getList(size, page).then((res) => {
+        localStorage.setItem(page, JSON.stringify(res.data.data))
+        return res.data.data
+      })
+      promise.then((res) => {
+        this.list = res
+        this.$nextTick(() => {
+          if (this.swiper) {
+            this.swiper.$('.swiper-slide-duplicate').eq(0).html(this.swiper.$('.swiper-slide').eq(10).html())
+            this.swiper.$('.swiper-slide-duplicate').eq(1).html(this.swiper.$('.swiper-slide').eq(1).html())
+          }
+          if (!this.swiper) this.swiper = new Swiper('.swiper-container', {
+            direction: 'vertical',
+            loop: true,
+            observer: true,
+            observeParents: false,
+            on: {
+              reachBeginning: () => {
+                this.getListData(--this.page)
+              },
+              reachEnd: () => {
+                this.getListData(++this.page)
+              }
+            }
+          })
         })
       })
-    }).catch((err) => {
-      console.log(err)
-    })
+    }
   }
 }
 </script>

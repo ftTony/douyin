@@ -62,6 +62,8 @@ module.exports = {
       // js babel处理
       test: /\.js$/,
       use: ['babel-loader']
+      /*,
+      exclude: /node_modules/*/
     }, {
       // 图片处理
       test: /\.(png|svg|jpg|gif)$/,
@@ -95,12 +97,16 @@ module.exports = {
     }]
   },
   // devtool: '#cheap-module-eval-source-map',
+  // devtool: '#cheap-module-source-map',
   devtool: '#source-map',
   plugins: [
     new ClearWebpackPlugin(),
     new ParallelUglifyPlugin({
-      // 传递给 UglifyJS的参数
-      uglifyJS: {
+      sourceMap: true,
+      exclude: /node_modules/,
+      workerCount: 5,
+      // 传递给 uglifyES的参数
+      uglifyES: {
         output: {
           beautify: false,
           comments: false

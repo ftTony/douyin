@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
-    "pub": "webpack-dev-server --mode production --open",
+    "pub": "webpack --mode production",
     "start": "npm run dev"
   },
   "author": "xiaonengwu",

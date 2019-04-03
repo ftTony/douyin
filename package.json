@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
+    "pub": "webpack-dev-server --mode production --open",
     "start": "npm run dev"
   },
   "author": "xiaonengwu",
@@ -36,6 +37,7 @@
     "@babel/core": "^7.4.0",
     "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
-    "babel-loader": "^8.0.5"
+    "babel-loader": "^8.0.5",
+    "webpack-deep-scope-plugin": "^1.6.0"
   }
 }

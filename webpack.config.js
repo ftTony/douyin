@@ -5,6 +5,7 @@ const ClearWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
 
 module.exports = {
   entry: './src/main.js',
@@ -123,6 +124,7 @@ module.exports = {
       filename: `[name]_[contenthash:8].css`,
       chunkFilename: '[name]_[contenthash:8].css'
     }),
+    new WebpackDeepScopeAnalysisPlugin(),
     new VueLoaderPlugin(),
     //将js自动插入到html里
     new HtmlWebpackPlugin({

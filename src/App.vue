@@ -22,12 +22,12 @@ export default {
     this.getListData(++this.page)
   },
   methods: {
-    getListData (page) {
-      if (page < 1) page = 100
-      if (page > 100) page = 1
+    getListData () {
+      if (this.page < 1) this.page = 100
+      if (this.page > 100) this.page = 1
       const size = 10
-      let promise = localStorage.getItem(page) ? Promise.resolve(JSON.parse(localStorage.getItem(page))) : getList(size, page).then((res) => {
-        localStorage.setItem(page, JSON.stringify(res.data.data))
+      let promise = localStorage.getItem(this.page) ? Promise.resolve(JSON.parse(localStorage.getItem(this.page))) : getList(size, this.page).then((res) => {
+        localStorage.setItem(this.page, JSON.stringify(res.data.data))
         return res.data.data
       })
       promise.then((res) => {
@@ -46,10 +46,12 @@ export default {
             observeParents: false,
             on: {
               reachBeginning: () => {
-                this.getListData(--this.page)
+                --this.page
+                this.getListData()
               },
               reachEnd: () => {
-                this.getListData(++this.page)
+                ++this.page
+                this.getListData()
               }
             }
           })

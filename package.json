@@ -13,7 +13,7 @@
   "dependencies": {
     "@babel/preset-stage-2": "^7.0.0",
     "autoprefixer": "^9.5.0",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
